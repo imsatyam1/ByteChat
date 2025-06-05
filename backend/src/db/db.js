@@ -1,13 +1,16 @@
-import mongoose from 'mongoose'
+import { Prisma, PrismaClient } from "@prisma/client"
 
-async function connectDB(){
+const prismaClient = new PrismaClient();
+
+async function connectDB() {
     try {
-        const connectInstance = mongoose.connect(`${process.env.MONGO_URI}/bytechat`);
-        console.log(`MongoDB connected successfully ${connectInstance}`);
+        await prismaClient.$connect();
+        console.log("MongoDB connected using Prisma!");
     } catch (error) {
-        console.error("Mongo connection failed!!", error);
+        console.error("Mongo connection failed!");
         process.exit(1);
     }
 }
 
-export default connectDB;
+
+export { prismaClient,connectDB}

@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
-import connectDB from './db/db.js'
+import {prismaClient,connectDB} from './db/db.js'
 
 const app = express()
 
@@ -15,7 +15,7 @@ app.use(cookieParser())
 
 const PORT = process.env.PORT || 8000
 
-connectDB()
+await connectDB()
 .then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running ${PORT}`);
